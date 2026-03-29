@@ -19,7 +19,6 @@ const entrypoints = [
   'pages/demos/examples/4-canvas-text-rendering.html',
   'pages/demos/examples/5-resize-perf-benchmark.html',
   'pages/demos/examples/6-balanced-text.html',
-  'pages/demos/examples/7-dvd-screensaver.html',
 ]
 
 const result = Bun.spawnSync(
@@ -51,7 +50,6 @@ const targets = [
   { source: 'examples/4-canvas-text-rendering.html', target: 'examples/4-canvas-text-rendering.html' },
   { source: 'examples/5-resize-perf-benchmark.html', target: 'examples/5-resize-perf-benchmark.html' },
   { source: 'examples/6-balanced-text.html', target: 'examples/6-balanced-text.html' },
-  { source: 'examples/7-dvd-screensaver.html', target: 'examples/7-dvd-screensaver.html' },
 ]
 
 for (let index = 0; index < targets.length; index++) {
