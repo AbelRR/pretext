@@ -44,23 +44,32 @@ await document.fonts.ready
 function createNote(x: number, y: number, text: string): Note {
   const color = noteColors[Math.floor(Math.random() * noteColors.length)]
   const rotation = (Math.random() - 0.5) * 8
-  const w = 180 + Math.random() * 60
+  const noteW = Math.min(180 + Math.random() * 60, W - 40)
   const prepared = prepareWithSegments(text, font)
-  const result = layoutWithLines(prepared, w - pad * 2, lineHeight)
+  const result = layoutWithLines(prepared, noteW - pad * 2, lineHeight)
   return {
-    x, y, w, text, color, rotation, prepared,
+    x, y, w: noteW, text, color, rotation, prepared,
     lines: result.lines, height: result.height + pad * 2 + 16,
   }
 }
 
-const notes: Note[] = defaultTexts.map((t, i) => {
-  const col = i % 3, row = Math.floor(i / 3)
-  return createNote(60 + col * 260 + (Math.random() - 0.5) * 40, 60 + row * 220 + (Math.random() - 0.5) * 30, t)
-})
+function initialLayout(): Note[] {
+  const cols = W < 500 ? 2 : 3
+  const noteW = W < 500 ? (W - 60) / 2 : undefined
+  return defaultTexts.map((t, i) => {
+    const col = i % cols, row = Math.floor(i / cols)
+    const spacing = W < 500 ? (W - 20) / cols : 260
+    const x = 10 + col * spacing + (Math.random() - 0.5) * 10
+    const y = 60 + row * 200 + (Math.random() - 0.5) * 20
+    return createNote(x, y, t)
+  })
+}
+
+const notes: Note[] = initialLayout()
 
 let dragging: Note | null = null
 let dragOff = { x: 0, y: 0 }
-let editing: Note | null = null
+let lastTap = 0
 
 function noteAt(mx: number, my: number): Note | null {
   for (let i = notes.length - 1; i >= 0; i--) {
@@ -70,32 +79,30 @@ function noteAt(mx: number, my: number): Note | null {
   return null
 }
 
-canvas.addEventListener('mousedown', e => {
-  if (editing) { editing = null; draw(); return }
-  const n = noteAt(e.clientX, e.clientY)
+function startDrag(x: number, y: number) {
+  const n = noteAt(x, y)
   if (n) {
     dragging = n
-    dragOff = { x: e.clientX - n.x, y: e.clientY - n.y }
+    dragOff = { x: x - n.x, y: y - n.y }
     notes.splice(notes.indexOf(n), 1)
-    notes.push(n) // bring to front
+    notes.push(n)
     draw()
   }
-})
+}
 
-canvas.addEventListener('mousemove', e => {
+function moveDrag(x: number, y: number) {
   if (dragging) {
-    dragging.x = e.clientX - dragOff.x
-    dragging.y = e.clientY - dragOff.y
+    dragging.x = x - dragOff.x
+    dragging.y = y - dragOff.y
     draw()
   }
-})
+}
 
-canvas.addEventListener('mouseup', () => { dragging = null })
+function endDrag() { dragging = null }
 
-canvas.addEventListener('dblclick', e => {
-  const n = noteAt(e.clientX, e.clientY)
+function editNote(x: number, y: number) {
+  const n = noteAt(x, y)
   if (n) {
-    editing = n
     const newText = prompt('Edit note:', n.text)
     if (newText !== null && newText !== n.text) {
       n.text = newText
@@ -104,15 +111,47 @@ canvas.addEventListener('dblclick', e => {
       n.lines = result.lines
       n.height = result.height + pad * 2 + 16
     }
-    editing = null
     draw()
   }
-})
+}
+
+// Mouse events
+canvas.addEventListener('mousedown', e => startDrag(e.clientX, e.clientY))
+canvas.addEventListener('mousemove', e => moveDrag(e.clientX, e.clientY))
+canvas.addEventListener('mouseup', endDrag)
+canvas.addEventListener('dblclick', e => editNote(e.clientX, e.clientY))
+
+// Touch events
+canvas.addEventListener('touchstart', e => {
+  e.preventDefault()
+  const t = e.touches[0]
+  const now = Date.now()
+  if (now - lastTap < 300) {
+    editNote(t.clientX, t.clientY)
+    lastTap = 0
+    return
+  }
+  lastTap = now
+  startDrag(t.clientX, t.clientY)
+}, { passive: false })
+
+canvas.addEventListener('touchmove', e => {
+  e.preventDefault()
+  const t = e.touches[0]
+  moveDrag(t.clientX, t.clientY)
+}, { passive: false })
+
+canvas.addEventListener('touchend', e => {
+  e.preventDefault()
+  endDrag()
+}, { passive: false })
 
 addBtn.addEventListener('click', () => {
   const text = prompt('New note:', 'Type something here...')
   if (text) {
-    notes.push(createNote(100 + Math.random() * 300, 100 + Math.random() * 200, text))
+    const x = 20 + Math.random() * Math.max(50, W - 250)
+    const y = 60 + Math.random() * Math.max(50, H - 300)
+    notes.push(createNote(x, y, text))
     draw()
   }
 })
