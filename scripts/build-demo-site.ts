@@ -1,8 +1,14 @@
-import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
 const root = process.cwd()
 const outdir = path.join(root, 'site')
+
+// Auto-discover example HTML files
+const examplesDir = path.join(root, 'pages/demos/examples')
+const exampleFiles = (await readdir(examplesDir)).filter(f => f.endsWith('.html')).sort()
+const exampleEntrypoints = exampleFiles.map(f => `pages/demos/examples/${f}`)
+
 const entrypoints = [
   'pages/demos/index.html',
   'pages/demos/accordion.html',
@@ -12,13 +18,7 @@ const entrypoints = [
   'pages/demos/masonry/index.html',
   'pages/demos/rich-note.html',
   'pages/demos/variable-typographic-ascii.html',
-  'pages/demos/examples/index.html',
-  'pages/demos/examples/1-height-prediction.html',
-  'pages/demos/examples/2-shrinkwrap.html',
-  'pages/demos/examples/3-variable-width-flow.html',
-  'pages/demos/examples/4-canvas-text-rendering.html',
-  'pages/demos/examples/5-resize-perf-benchmark.html',
-  'pages/demos/examples/6-balanced-text.html',
+  ...exampleEntrypoints,
 ]
 
 const result = Bun.spawnSync(
@@ -34,6 +34,8 @@ if (result.exitCode !== 0) {
   process.exit(result.exitCode)
 }
 
+const exampleTargets = exampleFiles.map(f => ({ source: `examples/${f}`, target: `examples/${f}` }))
+
 const targets = [
   { source: 'index.html', target: 'index.html' },
   { source: 'accordion.html', target: 'accordion/index.html' },
@@ -43,13 +45,7 @@ const targets = [
   { source: 'masonry/index.html', target: 'masonry/index.html' },
   { source: 'rich-note.html', target: 'rich-note/index.html' },
   { source: 'variable-typographic-ascii.html', target: 'variable-typographic-ascii/index.html' },
-  { source: 'examples/index.html', target: 'examples/index.html' },
-  { source: 'examples/1-height-prediction.html', target: 'examples/1-height-prediction.html' },
-  { source: 'examples/2-shrinkwrap.html', target: 'examples/2-shrinkwrap.html' },
-  { source: 'examples/3-variable-width-flow.html', target: 'examples/3-variable-width-flow.html' },
-  { source: 'examples/4-canvas-text-rendering.html', target: 'examples/4-canvas-text-rendering.html' },
-  { source: 'examples/5-resize-perf-benchmark.html', target: 'examples/5-resize-perf-benchmark.html' },
-  { source: 'examples/6-balanced-text.html', target: 'examples/6-balanced-text.html' },
+  ...exampleTargets,
 ]
 
 for (let index = 0; index < targets.length; index++) {
