@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pretext Example: Balanced Text Layout</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #0a0a1a; color: #e2e8f0; }
+    h1 { padding: 24px 24px 8px; font-size: 20px; color: #fff; }
+    .description { padding: 0 24px 20px; color: #94a3b8; font-size: 14px; max-width: 700px; line-height: 1.5; }
+    code { background: #1e293b; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+    .comparison { display: flex; gap: 32px; padding: 0 24px 24px; flex-wrap: wrap; }
+    .column { flex: 1; min-width: 300px; max-width: 500px; }
+    .column-title { font-size: 14px; font-weight: 600; margin-bottom: 16px; }
+    .column-title.unbalanced { color: #f97316; }
+    .column-title.balanced { color: #4ade80; }
+    .text-card {
+      border: 1px solid #1e293b; border-radius: 12px; padding: 16px;
+      margin-bottom: 16px; background: #101828; position: relative;
+    }
+    .text-card p {
+      font: 18px/28px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      text-align: center;
+    }
+    .width-badge {
+      position: absolute; top: 8px; right: 8px; font-size: 11px;
+      background: #1e293b; padding: 2px 8px; border-radius: 4px; color: #94a3b8;
+    }
+    .visual-bar {
+      height: 3px; margin-top: 8px; border-radius: 2px; opacity: 0.5;
+    }
+    .visual-bar.unbalanced { background: #f97316; }
+    .visual-bar.balanced { background: #4ade80; }
+  </style>
+</head>
+<body>
+  <h1>Balanced Text Layout</h1>
+  <div class="description">
+    CSS <code>text-wrap: balance</code> exists but has limited browser support and only works on short blocks.
+    Pretext can balance <em>any</em> text by binary-searching for the narrowest width that maintains the same
+    line count — producing visually even line lengths. Compare the results below.
+  </div>
+
+  <div class="comparison">
+    <div class="column">
+      <div class="column-title unbalanced">Default (full width)</div>
+      <div id="unbalanced"></div>
+    </div>
+    <div class="column">
+      <div class="column-title balanced">Pretext Balanced</div>
+      <div id="balanced"></div>
+    </div>
+  </div>
+
+  <script type="module" src="./balanced-text.ts"></script>
+</body>
+</html>

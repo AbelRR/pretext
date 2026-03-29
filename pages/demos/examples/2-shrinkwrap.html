@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pretext Example: Multiline Shrinkwrap</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #0f172a; color: #e2e8f0; }
+    h1 { padding: 24px 24px 8px; font-size: 20px; color: #fff; }
+    .description { padding: 0 24px 24px; color: #94a3b8; font-size: 14px; max-width: 700px; line-height: 1.5; }
+    code { background: #1e293b; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+    .chat-container { max-width: 500px; margin: 0 auto; padding: 0 24px 24px; }
+    .controls { padding: 0 24px 16px; max-width: 500px; margin: 0 auto; }
+    .controls label { font-size: 13px; color: #94a3b8; }
+    .controls input[type=range] { width: 100%; margin-top: 4px; }
+    .width-label { font-size: 13px; color: #7c8aff; font-weight: 600; }
+
+    .message-row { display: flex; margin-bottom: 8px; }
+    .message-row.sent { justify-content: flex-end; }
+    .message-row.received { justify-content: flex-start; }
+
+    .bubble {
+      padding: 8px 12px;
+      border-radius: 16px;
+      font: 15px/22px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+    .bubble.css-width {
+      /* CSS default: takes full max-width even when text is short on last line */
+      max-width: var(--max-bubble-width);
+    }
+    .bubble.shrinkwrap {
+      /* Pretext shrinkwrap: width set exactly to widest line */
+    }
+    .sent .bubble { background: #3b82f6; color: #fff; border-bottom-right-radius: 4px; }
+    .received .bubble { background: #1e293b; color: #e2e8f0; border-bottom-left-radius: 4px; }
+
+    .comparison { display: flex; gap: 32px; padding: 0 24px; max-width: 1050px; margin: 0 auto; }
+    .side { flex: 1; max-width: 500px; }
+    .side-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+    .side-title.css { color: #f97316; }
+    .side-title.pretext { color: #4ade80; }
+    .waste-indicator { font-size: 12px; color: #f97316; margin-top: 4px; text-align: right; }
+    .savings { font-size: 12px; color: #4ade80; margin-top: 4px; text-align: right; }
+  </style>
+</head>
+<body>
+  <h1>Multiline Shrinkwrap</h1>
+  <div class="description">
+    CSS <code>max-width</code> on chat bubbles wastes space — the bubble stretches to max-width
+    even when the last line is short. Pretext's <code>walkLineRanges()</code> binary-searches
+    for the tightest width that keeps the same line count. This "shrinkwrap" has never existed on the web before.
+  </div>
+
+  <div class="controls">
+    <label>Max bubble width: <span class="width-label" id="width-val">300px</span></label>
+    <input type="range" id="width-slider" min="150" max="450" value="300">
+  </div>
+
+  <div class="comparison">
+    <div class="side">
+      <div class="side-title css">CSS max-width (wastes space)</div>
+      <div id="css-chat"></div>
+    </div>
+    <div class="side">
+      <div class="side-title pretext">Pretext shrinkwrap (tight fit)</div>
+      <div id="shrink-chat"></div>
+    </div>
+  </div>
+
+  <script type="module" src="./shrinkwrap.ts"></script>
+</body>
+</html>

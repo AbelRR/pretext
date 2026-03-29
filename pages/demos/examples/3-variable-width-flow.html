@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pretext Example: Variable-Width Text Flow</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #0c0c1d; color: #e2e8f0; }
+    h1 { padding: 24px 24px 8px; font-size: 20px; color: #fff; }
+    .description { padding: 0 24px 20px; color: #94a3b8; font-size: 14px; max-width: 700px; line-height: 1.5; }
+    code { background: #1e293b; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+    .controls { padding: 0 24px 16px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .controls label { font-size: 13px; color: #94a3b8; }
+    .controls input[type=range] { width: 200px; }
+    .val { color: #7c8aff; font-weight: 600; font-size: 13px; }
+    canvas { display: block; margin: 0 auto; border: 1px solid #1e293b; border-radius: 8px; background: #101828; }
+  </style>
+</head>
+<body>
+  <h1>Variable-Width Text Flow Around Obstacles</h1>
+  <div class="description">
+    Pretext's <code>layoutNextLine()</code> lets each line have a different max width.
+    This enables magazine-style text flowing around images and shapes — something that
+    previously required complex CSS floats or was simply impossible for dynamic content.
+    Drag the sliders to move and resize the obstacle.
+  </div>
+
+  <div class="controls">
+    <label>Obstacle X: <span class="val" id="ox-val">60</span></label>
+    <input type="range" id="ox" min="0" max="500" value="60">
+    <label>Obstacle Y: <span class="val" id="oy-val">40</span></label>
+    <input type="range" id="oy" min="0" max="400" value="40">
+    <label>Size: <span class="val" id="os-val">160</span></label>
+    <input type="range" id="os" min="60" max="250" value="160">
+  </div>
+
+  <canvas id="canvas" width="700" height="520"></canvas>
+
+  <script type="module" src="./variable-width-flow.ts"></script>
+</body>
+</html>

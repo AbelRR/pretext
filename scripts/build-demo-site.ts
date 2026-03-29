@@ -12,6 +12,13 @@ const entrypoints = [
   'pages/demos/masonry/index.html',
   'pages/demos/rich-note.html',
   'pages/demos/variable-typographic-ascii.html',
+  'pages/demos/examples/index.html',
+  'pages/demos/examples/1-height-prediction.html',
+  'pages/demos/examples/2-shrinkwrap.html',
+  'pages/demos/examples/3-variable-width-flow.html',
+  'pages/demos/examples/4-canvas-text-rendering.html',
+  'pages/demos/examples/5-resize-perf-benchmark.html',
+  'pages/demos/examples/6-balanced-text.html',
 ]
 
 const result = Bun.spawnSync(
@@ -36,6 +43,13 @@ const targets = [
   { source: 'masonry/index.html', target: 'masonry/index.html' },
   { source: 'rich-note.html', target: 'rich-note/index.html' },
   { source: 'variable-typographic-ascii.html', target: 'variable-typographic-ascii/index.html' },
+  { source: 'examples/index.html', target: 'examples/index.html' },
+  { source: 'examples/1-height-prediction.html', target: 'examples/1-height-prediction.html' },
+  { source: 'examples/2-shrinkwrap.html', target: 'examples/2-shrinkwrap.html' },
+  { source: 'examples/3-variable-width-flow.html', target: 'examples/3-variable-width-flow.html' },
+  { source: 'examples/4-canvas-text-rendering.html', target: 'examples/4-canvas-text-rendering.html' },
+  { source: 'examples/5-resize-perf-benchmark.html', target: 'examples/5-resize-perf-benchmark.html' },
+  { source: 'examples/6-balanced-text.html', target: 'examples/6-balanced-text.html' },
 ]
 
 for (let index = 0; index < targets.length; index++) {
@@ -49,6 +63,7 @@ async function resolveBuiltHtmlPath(relativePath: string): Promise<string> {
   const candidates = [
     path.join(outdir, relativePath),
     path.join(outdir, 'pages', 'demos', relativePath),
+    path.join(outdir, 'pages', 'demos', 'examples', path.basename(relativePath)),
   ]
   for (let index = 0; index < candidates.length; index++) {
     const candidate = candidates[index]!
