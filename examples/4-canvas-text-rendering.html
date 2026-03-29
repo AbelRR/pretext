@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pretext Example: Multilingual Canvas Text Rendering</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #0a0a1a; color: #e2e8f0; }
+    h1 { padding: 24px 24px 8px; font-size: 20px; color: #fff; }
+    .description { padding: 0 24px 20px; color: #94a3b8; font-size: 14px; max-width: 700px; line-height: 1.5; }
+    code { background: #1e293b; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; padding: 0 24px 24px; }
+    .card {
+      border: 1px solid #1e293b; border-radius: 12px; overflow: hidden;
+      background: #101828;
+    }
+    .card-header {
+      padding: 10px 14px; font-size: 13px; font-weight: 600;
+      border-bottom: 1px solid #1e293b; display: flex; justify-content: space-between;
+    }
+    .card-header .lang { color: #7c8aff; }
+    .card-header .stats { color: #4ade80; font-weight: 400; font-size: 12px; }
+    canvas { display: block; width: 100%; }
+    .controls { padding: 0 24px 16px; }
+    .controls label { font-size: 13px; color: #94a3b8; }
+    .controls input[type=range] { width: 300px; }
+    .val { color: #7c8aff; font-weight: 600; font-size: 13px; }
+  </style>
+<script type="module" crossorigin src="../4-canvas-text-rendering-e766vdjy.js"></script></head>
+<body>
+  <h1>Multilingual Canvas Text Rendering</h1>
+  <div class="description">
+    Pretext's <code>layoutWithLines()</code> enables rendering text to Canvas instead of DOM.
+    Every card below is a <code>&lt;canvas&gt;</code> element — no DOM text nodes at all.
+    All languages are measured and wrapped correctly using <code>Intl.Segmenter</code> + canvas measurement.
+  </div>
+  <div class="controls">
+    <label>Container width: <span class="val" id="w-val">340</span>px</label>
+    <input type="range" id="w-slider" min="200" max="500" value="340">
+  </div>
+  <div class="grid" id="grid"></div>
+
+  
+</body>
+</html>

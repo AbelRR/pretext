@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pretext Examples — Showcasing Key Capabilities</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #0a0a1a; color: #e2e8f0; min-height: 100vh; }
+    .hero { padding: 48px 24px 32px; text-align: center; }
+    h1 { font-size: 32px; color: #fff; margin-bottom: 12px; }
+    .subtitle { color: #94a3b8; font-size: 16px; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+    .subtitle a { color: #7c8aff; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 0 24px 48px; max-width: 1000px; margin: 0 auto; }
+    a.card {
+      display: block; text-decoration: none; border: 1px solid #1e293b; border-radius: 16px;
+      padding: 24px; background: #101828; transition: all 0.2s;
+    }
+    a.card:hover { border-color: #7c8aff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+    .card-num { font-size: 13px; color: #7c8aff; font-weight: 700; margin-bottom: 8px; }
+    .card h2 { font-size: 18px; color: #fff; margin-bottom: 8px; }
+    .card p { font-size: 14px; color: #94a3b8; line-height: 1.5; }
+    .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-top: 12px; margin-right: 4px; }
+    .tag.api { background: #1e3a5f; color: #60a5fa; }
+    .tag.feature { background: #1a3326; color: #4ade80; }
+    .tag.perf { background: #3b1f1f; color: #f87171; }
+  </style>
+<script type="module" crossorigin src="../index-dzmkvjj0.js"></script></head>
+<body>
+  <div class="hero">
+    <h1>Pretext Examples</h1>
+    <p class="subtitle">
+      Interactive examples showcasing key capabilities of <strong>pretext</strong> —
+      the library that makes text measurement &amp; layout fast, accurate, and DOM-free.
+      <br><br>
+      <a href="../pages/demos/index.html">&larr; Back to official demos</a>
+    </p>
+  </div>
+
+  <div class="grid">
+    <a class="card" href="1-height-prediction.html">
+      <div class="card-num">01</div>
+      <h2>Height Prediction</h2>
+      <p>Predict exact text heights without DOM rendering. Compare naive estimation vs pretext's pixel-perfect layout() predictions for virtualization.</p>
+      <span class="tag api">layout()</span>
+      <span class="tag feature">virtualization</span>
+    </a>
+
+    <a class="card" href="2-shrinkwrap.html">
+      <div class="card-num">02</div>
+      <h2>Multiline Shrinkwrap</h2>
+      <p>Chat bubbles that fit their content perfectly. Binary-search with walkLineRanges() to find the tightest width — something CSS can't do.</p>
+      <span class="tag api">walkLineRanges()</span>
+      <span class="tag feature">shrinkwrap</span>
+    </a>
+
+    <a class="card" href="3-variable-width-flow.html">
+      <div class="card-num">03</div>
+      <h2>Variable-Width Flow</h2>
+      <p>Magazine-style text flowing around obstacles. Each line gets a different width via layoutNextLine() — like a JS layout engine.</p>
+      <span class="tag api">layoutNextLine()</span>
+      <span class="tag feature">obstacle flow</span>
+    </a>
+
+    <a class="card" href="4-canvas-text-rendering.html">
+      <div class="card-num">04</div>
+      <h2>Multilingual Canvas</h2>
+      <p>Render text to Canvas in 8 languages: English, Chinese, Japanese, Korean, Arabic, Thai, Hindi, and mixed+emoji. All correctly wrapped.</p>
+      <span class="tag api">layoutWithLines()</span>
+      <span class="tag feature">i18n</span>
+    </a>
+
+    <a class="card" href="5-resize-perf-benchmark.html">
+      <div class="card-num">05</div>
+      <h2>Performance Benchmark</h2>
+      <p>Live benchmark: measure 500 texts at 5 widths. Compare pretext's arithmetic layout() vs DOM offsetHeight reflow.</p>
+      <span class="tag api">layout()</span>
+      <span class="tag perf">benchmark</span>
+    </a>
+
+    <a class="card" href="6-balanced-text.html">
+      <div class="card-num">06</div>
+      <h2>Balanced Text</h2>
+      <p>CSS text-wrap: balance has limited support. Pretext binary-searches for the narrowest width that keeps the same line count — works everywhere.</p>
+      <span class="tag api">walkLineRanges()</span>
+      <span class="tag feature">balance</span>
+    </a>
+  </div>
+</body>
+</html>
