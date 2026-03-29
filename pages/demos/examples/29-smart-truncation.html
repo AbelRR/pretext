@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pretext: Smart Truncation</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0a1a; font-family: 'Helvetica Neue', sans-serif; color: #e2e8f0; padding: 24px; }
+    h1 { font-size: 20px; color: #fff; margin-bottom: 8px; }
+    .desc { font-size: 14px; color: #94a3b8; margin-bottom: 20px; max-width: 600px; line-height: 1.5; }
+    .controls { margin-bottom: 16px; display: flex; gap: 12px; align-items: center; }
+    .controls label { font-size: 13px; color: #94a3b8; }
+    .val { color: #7c8aff; font-weight: 600; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .card { border: 1px solid #1e293b; border-radius: 12px; padding: 16px; background: #101828; }
+    .card-title { font-size: 11px; color: #7c8aff; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .card-text { font: 14px/20px 'Helvetica Neue', sans-serif; color: #cbd5e1; }
+    .card-text .ellipsis { color: #7c8aff; }
+    .card-meta { font-size: 11px; color: #475569; margin-top: 8px; }
+  </style>
+  <script type="module" src="./smart-truncation.ts"></script>
+</head>
+<body>
+  <h1>Smart Multi-line Truncation</h1>
+  <div class="desc">CSS <code>text-overflow: ellipsis</code> only works for one line. Pretext truncates at exactly N lines with perfect ellipsis placement.</div>
+  <div class="controls">
+    <label>Max lines: <span class="val" id="lines-val">3</span></label>
+    <input type="range" id="lines-slider" min="1" max="8" value="3">
+    <label>Width: <span class="val" id="width-val">300</span>px</label>
+    <input type="range" id="width-slider" min="200" max="500" value="300">
+  </div>
+  <div class="cards" id="cards"></div>
+</body>
+</html>

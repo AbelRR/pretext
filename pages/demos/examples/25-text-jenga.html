@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pretext: Text Jenga</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { overflow: hidden; background: #0a0a1a; }
+    canvas { display: block; position: fixed; top: 0; left: 0; cursor: pointer; }
+    .hud { position: fixed; bottom: 12px; left: 12px; z-index: 10; font-size: 12px; color: rgba(255,255,255,0.25); font-family: sans-serif; pointer-events: none; }
+    .btn { position: fixed; top: 16px; right: 16px; z-index: 10; background: #4ade80; color: #0a0a1a; border: none; padding: 8px 16px; border-radius: 8px; font-size: 14px; cursor: pointer; }
+  </style>
+  <script type="module" src="./text-jenga.ts"></script>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <button class="btn" id="reset-btn">Reset Tower</button>
+  <div class="hud">Click a block to remove it &middot; Tower collapses with physics &middot; Heights by pretext</div>
+</body>
+</html>
