@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pretext Example: DVD Screensaver Essay</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { overflow: hidden; background: #111; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    canvas { display: block; position: fixed; top: 0; left: 0; }
+    .hud {
+      position: fixed; bottom: 16px; left: 16px; z-index: 10;
+      font-size: 13px; color: #555; pointer-events: none;
+    }
+    .hud span { color: #7c8aff; font-weight: 600; }
+  </style>
+  <script type="module" src="./dvd-screensaver.ts"></script>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div class="hud">
+    Corner hits: <span id="corner-count">0</span> &nbsp;&middot;&nbsp;
+    Rendered with pretext <code>layoutWithLines()</code> on canvas
+  </div>
+</body>
+</html>
